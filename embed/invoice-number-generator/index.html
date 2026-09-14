@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Invoice Number Generator — BusinessOS</title>
+<meta name="robots" content="noindex, follow" />
+<link rel="canonical" href="https://businessos.biz/tools/invoice-number-generator/" />
+<style>
+  :root { color-scheme: light dark; --bg:#0f1a1c; --surface:#142428; --surface-2:#1a2d31; --line:#2a4147; --text:#eef4f5; --muted:#a7b8bb; --accent:#45d7d1; --accent-fg:#0f1a1c; }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f6f9fa; --surface:#fff; --surface-2:#eef3f4; --line:#d5dfe1; --text:#10262a; --muted:#4b6266; --accent:#0e8a86; --accent-fg:#fff; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif; }
+  .wrap { padding: 16px 18px; }
+  h2 { margin: 0 0 12px; font-size: 16px; font-weight: 600; color: var(--text); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+  .ef { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+  .ef input, .ef select { font: inherit; font-size: 13px; padding: 7px 10px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; color: var(--text); }
+  .out { margin-top: 14px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 13px; white-space: pre-wrap; min-height: 40px; }
+  .foot { margin-top: 12px; text-align: center; font-size: 11px; color: var(--muted); }
+  .foot a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .foot a:hover { text-decoration: underline; }
+  @media (max-width: 400px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h2>Invoice Number Generator</h2>
+  <form class="grid" id="f">
+    <label class="ef"><span>Prefix</span><input id="f-prefix" type="text" step="any" value="INV" /></label>
+      <label class="ef"><span>Year</span><input id="f-year" type="text" step="any" value="2026" /></label>
+      <label class="ef"><span>Starting number</span><input id="f-start" type="number" step="any" value="1001" /></label>
+      <label class="ef"><span>How many to generate</span><input id="f-count" type="number" step="any" value="10" /></label>
+      <label class="ef"><span>Zero-pad width</span><input id="f-pad" type="number" step="any" value="4" /></label>
+  </form>
+  <pre class="out" id="o" aria-live="polite"></pre>
+  <p class="foot">Powered by <a href="https://businessos.biz/tools/invoice-number-generator/?utm_source=embed" target="_blank" rel="noopener">BusinessOS</a> · Free during limited early access</p>
+</div>
+<script>
+(function(){
+  var fields = ["prefix","year","start","count","pad"];
+  var dateFields = [];
+  var out = document.getElementById('o');
+  var form = document.getElementById('f');
+  dateFields.forEach(function(id){
+    var el = document.getElementById('f-'+id);
+    if (el && !el.value) el.value = new Date().toISOString().slice(0,10);
+  });
+  function readValues(){ var v={}; fields.forEach(function(id){ var el=document.getElementById('f-'+id); if(el) v[id]=el.value; }); return v; }
+  function compute(v){
+      const prefix=v.prefix||'INV', year=v.year||'', start=parseInt(v.start||'1',10);
+      const count=Math.max(1,Math.min(500,parseInt(v.count||'10',10)));
+      const pad=Math.max(1,Math.min(10,parseInt(v.pad||'4',10)));
+      const list=[]; for(let i=0;i<count;i++){
+        const n=String(start+i).padStart(pad,'0');
+        list.push(prefix+(year?'-'+year:'')+'-'+n);
+      }
+      return list.join('\n');
+    }
+  function run(){ try { out.textContent = compute(readValues()); } catch(e){ out.textContent='Error: '+e.message; } }
+  form.addEventListener('input', run);
+  form.addEventListener('change', run);
+  run();
+})();
+</script>
+</body>
+</html>

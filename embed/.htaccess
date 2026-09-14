@@ -1,0 +1,9 @@
+# Allow this directory to be embedded on any website
+# — this is what makes the "embed on your blog" viral loop work
+<IfModule mod_headers.c>
+  Header always unset X-Frame-Options
+  Header always set X-Frame-Options "ALLOWALL"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; frame-ancestors *;"
+  Header always set Access-Control-Allow-Origin "*"
+  Header always set Cache-Control "public, max-age=3600"
+</IfModule>

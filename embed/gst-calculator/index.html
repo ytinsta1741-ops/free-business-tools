@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GST Calculator — BusinessOS</title>
+<meta name="robots" content="noindex, follow" />
+<link rel="canonical" href="https://businessos.biz/tools/gst-calculator/" />
+<style>
+  :root { color-scheme: light dark; --bg:#0f1a1c; --surface:#142428; --surface-2:#1a2d31; --line:#2a4147; --text:#eef4f5; --muted:#a7b8bb; --accent:#45d7d1; --accent-fg:#0f1a1c; }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f6f9fa; --surface:#fff; --surface-2:#eef3f4; --line:#d5dfe1; --text:#10262a; --muted:#4b6266; --accent:#0e8a86; --accent-fg:#fff; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif; }
+  .wrap { padding: 16px 18px; }
+  h2 { margin: 0 0 12px; font-size: 16px; font-weight: 600; color: var(--text); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+  .ef { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+  .ef input, .ef select { font: inherit; font-size: 13px; padding: 7px 10px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; color: var(--text); }
+  .out { margin-top: 14px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 13px; white-space: pre-wrap; min-height: 40px; }
+  .foot { margin-top: 12px; text-align: center; font-size: 11px; color: var(--muted); }
+  .foot a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .foot a:hover { text-decoration: underline; }
+  @media (max-width: 400px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h2>GST Calculator</h2>
+  <form class="grid" id="f">
+    <label class="ef"><span>Amount</span><input id="f-amount" type="number" step="any" value="1000" /></label>
+      <label class="ef"><span>GST rate (%)</span><input id="f-rate" type="number" step="any" value="18" /></label>
+      <label class="ef"><span>Supply type</span><select id="f-type"><option value="Intra-state (CGST + SGST)">Intra-state (CGST + SGST)</option><option value="Inter-state (IGST)">Inter-state (IGST)</option></select></label>
+      <label class="ef"><span>Amount is</span><select id="f-mode"><option value="Net (add GST)">Net (add GST)</option><option value="Gross (remove GST)">Gross (remove GST)</option></select></label>
+  </form>
+  <pre class="out" id="o" aria-live="polite"></pre>
+  <p class="foot">Powered by <a href="https://businessos.biz/tools/gst-calculator/?utm_source=embed" target="_blank" rel="noopener">BusinessOS</a> · Free during limited early access</p>
+</div>
+<script>
+(function(){
+  var fields = ["amount","rate","type","mode"];
+  var dateFields = [];
+  var out = document.getElementById('o');
+  var form = document.getElementById('f');
+  dateFields.forEach(function(id){
+    var el = document.getElementById('f-'+id);
+    if (el && !el.value) el.value = new Date().toISOString().slice(0,10);
+  });
+  function readValues(){ var v={}; fields.forEach(function(id){ var el=document.getElementById('f-'+id); if(el) v[id]=el.value; }); return v; }
+  function compute(v){
+      const a=parseFloat(v.amount||'0'), r=parseFloat(v.rate||'0')/100;
+      const isNet=(v.mode||'').startsWith('Net');
+      const net = isNet? a : a/(1+r);
+      const gst = isNet? a*r : a - a/(1+r);
+      const gross = isNet? a*(1+r) : a;
+      const isInter = (v.type||'').startsWith('Inter');
+      let out = 'Net: ₹'+net.toFixed(2)+'\n';
+      if(isInter){ out += 'IGST ('+(r*100).toFixed(0)+'%): ₹'+gst.toFixed(2)+'\n'; }
+      else { out += 'CGST ('+((r*100)/2).toFixed(1)+'%): ₹'+(gst/2).toFixed(2)+'\nSGST ('+((r*100)/2).toFixed(1)+'%): ₹'+(gst/2).toFixed(2)+'\n'; }
+      out += 'Total: ₹'+gross.toFixed(2);
+      return out;
+    }
+  function run(){ try { out.textContent = compute(readValues()); } catch(e){ out.textContent='Error: '+e.message; } }
+  form.addEventListener('input', run);
+  form.addEventListener('change', run);
+  run();
+})();
+</script>
+</body>
+</html>

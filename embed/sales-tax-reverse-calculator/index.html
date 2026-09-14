@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reverse Sales Tax Calculator — BusinessOS</title>
+<meta name="robots" content="noindex, follow" />
+<link rel="canonical" href="https://businessos.biz/tools/sales-tax-reverse-calculator/" />
+<style>
+  :root { color-scheme: light dark; --bg:#0f1a1c; --surface:#142428; --surface-2:#1a2d31; --line:#2a4147; --text:#eef4f5; --muted:#a7b8bb; --accent:#45d7d1; --accent-fg:#0f1a1c; }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f6f9fa; --surface:#fff; --surface-2:#eef3f4; --line:#d5dfe1; --text:#10262a; --muted:#4b6266; --accent:#0e8a86; --accent-fg:#fff; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif; }
+  .wrap { padding: 16px 18px; }
+  h2 { margin: 0 0 12px; font-size: 16px; font-weight: 600; color: var(--text); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+  .ef { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+  .ef input, .ef select { font: inherit; font-size: 13px; padding: 7px 10px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; color: var(--text); }
+  .out { margin-top: 14px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 13px; white-space: pre-wrap; min-height: 40px; }
+  .foot { margin-top: 12px; text-align: center; font-size: 11px; color: var(--muted); }
+  .foot a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .foot a:hover { text-decoration: underline; }
+  @media (max-width: 400px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h2>Reverse Sales Tax Calculator</h2>
+  <form class="grid" id="f">
+    <label class="ef"><span>Total amount (with tax)</span><input id="f-total" type="number" step="any" value="108.50" /></label>
+      <label class="ef"><span>Sales tax rate (%)</span><input id="f-rate" type="number" step="any" value="8.5" /></label>
+  </form>
+  <pre class="out" id="o" aria-live="polite"></pre>
+  <p class="foot">Powered by <a href="https://businessos.biz/tools/sales-tax-reverse-calculator/?utm_source=embed" target="_blank" rel="noopener">BusinessOS</a> · Free during limited early access</p>
+</div>
+<script>
+(function(){
+  var fields = ["total","rate"];
+  var dateFields = [];
+  var out = document.getElementById('o');
+  var form = document.getElementById('f');
+  dateFields.forEach(function(id){
+    var el = document.getElementById('f-'+id);
+    if (el && !el.value) el.value = new Date().toISOString().slice(0,10);
+  });
+  function readValues(){ var v={}; fields.forEach(function(id){ var el=document.getElementById('f-'+id); if(el) v[id]=el.value; }); return v; }
+  function compute(v){
+      const t=parseFloat(v.total||'0'), r=parseFloat(v.rate||'0')/100;
+      const pre=t/(1+r); const tax=t-pre;
+      return 'Pre-tax amount: '+pre.toFixed(2)+'\nSales tax: '+tax.toFixed(2)+'\nTotal: '+t.toFixed(2);
+    }
+  function run(){ try { out.textContent = compute(readValues()); } catch(e){ out.textContent='Error: '+e.message; } }
+  form.addEventListener('input', run);
+  form.addEventListener('change', run);
+  run();
+})();
+</script>
+</body>
+</html>
