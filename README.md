@@ -116,32 +116,9 @@ Built with the same discipline as the full business platform at **[businessos.bi
 
 The tools here are the calculator subset — the full app adds invoicing, expenses, cash flow forecasting, and financial reports.
 
-### Regional editions
+**Full platform → [https://businessos.biz](https://businessos.biz)**
 
-BusinessOS is tuned for specific regulatory and currency environments:
-
-- 🇸🇦 **[Saudi Arabia (ZATCA e-invoicing, VAT 15%)](https://businessos.biz/saudi-arabia/)**
-- 🇦🇪 **[UAE (FTA VAT 5%)](https://businessos.biz/uae/)**
-- 🇮🇳 **[India (GST CGST/SGST/IGST)](https://businessos.biz/india/)**
-- 🇬🇧 **[United Kingdom (HMRC MTD)](https://businessos.biz/united-kingdom/)**
-- 🇺🇸 **[USA (state sales tax)](https://businessos.biz/usa/)**
-- 🇦🇺 **[Australia (ATO GST)](https://businessos.biz/australia/)**
-- 🇨🇦 **[Canada (CRA GST/HST/PST)](https://businessos.biz/canada/)**
-- 🇩🇪 **[Germany (Umsatzsteuer)](https://businessos.biz/germany/)**
-- 🇫🇷 **[France (TVA)](https://businessos.biz/france/)**
-- 🇪🇸 **[Spain (IVA)](https://businessos.biz/spain/)**
-- 🇳🇱 **[Netherlands (BTW)](https://businessos.biz/netherlands/)**
-- 🇵🇰 **[Pakistan (FBR)](https://businessos.biz/pakistan/)**
-
-### Related resources
-
-- **[Free invoice generator](https://businessos.biz/free-invoice/)** — send a compliant invoice in under a minute, no signup.
-- **[Invoice templates](https://businessos.biz/invoice-template/)** — clean, printable, VAT/GST-ready.
-- **[BusinessOS blog](https://businessos.biz/blog/)** — offline accounting, freelance invoicing, cash flow, small-business finance.
-- **[Free QuickBooks alternative](https://businessos.biz/blog/free-quickbooks-alternative/)**
-- **[Offline accounting software guide](https://businessos.biz/blog/offline-accounting-software/)**
-- **[Send invoices via WhatsApp](https://businessos.biz/blog/whatsapp-invoice/)**
-- **[Voice-to-invoice: dictate an invoice in 3 seconds](https://businessos.biz/blog/voice-to-invoice/)**
+Multi-region tax and currency support (UK VAT, UAE VAT, Saudi ZATCA, India GST, USA sales tax, EU VAT, and more) — free during limited early access.
 
 ---
 

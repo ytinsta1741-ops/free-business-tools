@@ -67,10 +67,9 @@ These 40 tools are a subset of the calculator work that ships inside [BusinessOS
 - WhatsApp send
 - Zero-knowledge encryption before optional sync
 
-Regional editions with the right tax engine for your country:
-[🇸🇦 Saudi Arabia](https://businessos.biz/saudi-arabia/) · [🇦🇪 UAE](https://businessos.biz/uae/) · [🇮🇳 India](https://businessos.biz/india/) · [🇬🇧 UK](https://businessos.biz/united-kingdom/) · [🇺🇸 USA](https://businessos.biz/usa/) · [🇦🇺 Australia](https://businessos.biz/australia/) · [🇨🇦 Canada](https://businessos.biz/canada/) · [🇩🇪 Germany](https://businessos.biz/germany/) · [🇫🇷 France](https://businessos.biz/france/) · [🇪🇸 Spain](https://businessos.biz/spain/) · [🇳🇱 Netherlands](https://businessos.biz/netherlands/) · [🇵🇰 Pakistan](https://businessos.biz/pakistan/)
+Multi-region tax engines (UK VAT, UAE VAT, Saudi ZATCA, India GST, USA sales tax, EU VAT, and more).
 
-Free during limited early access.
+**[https://businessos.biz](https://businessos.biz)** — free during limited early access.
 
 ## License
 
